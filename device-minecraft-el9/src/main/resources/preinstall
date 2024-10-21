@@ -1,0 +1,3 @@
+/usr/bin/getent group minecraft > /dev/null || /usr/sbin/groupadd -r minecraft
+/usr/bin/getent passwd minecraft > /dev/null || /usr/sbin/useradd -r -g minecraft minecraft -s /sbin/nologin -d /var/lib/minecraft
+

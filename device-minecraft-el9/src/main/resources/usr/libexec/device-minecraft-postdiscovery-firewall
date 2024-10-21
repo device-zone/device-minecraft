@@ -1,0 +1,53 @@
+#!/bin/bash
+  
+#
+# Minecraft Postdiscovery - Firewall
+# ==================================
+#
+# This script opens the firewall for all minecraft instances..
+
+set -e
+
+exec 2> >(logger -t ${0})
+
+#
+# Silence warnings with runuser.
+cd /tmp
+
+#
+# Add/remove TLS
+
+find /etc/device/services/app/minecraft/ -mindepth 1 -maxdepth 1 -type l | \
+while read line; do
+
+  target=$(readlink -f "$line")
+
+  if test ! -f "$line/name.txt"; then
+    continue;
+  fi
+  instance="$(head $line/name.txt)"
+
+  if test ! -f "$line/port.txt"; then
+    port=25565
+  else
+    port=$(head -n 1 "$line/port.txt")
+  fi
+
+  if test -f "$line/disabled.bin" -o -z "${uuid}"; then
+
+    if command -v /usr/bin/firewall-cmd 2>/dev/null; then
+      logger -t minecraft-postdiscovery "Notice: closing firewall for minecraft port ${port}..."
+      /usr/bin/firewall-cmd --quiet --zone=public --remove-port=${port}/tcp 2> /dev/null || true
+    fi
+
+  else
+
+    if command -v /usr/bin/firewall-cmd 2>/dev/null; then
+      logger -t minecraft-postdiscovery "Notice: opening firewall for minecraft port ${port}..."
+      /usr/bin/firewall-cmd --quiet --zone=public --add-port=${port}/tcp 2> /dev/null || true
+    fi
+
+  fi
+
+done
+

@@ -1,0 +1,14 @@
+# systemd service for managing all minecraft autoconfiguration.
+
+[Unit]
+Description=Minecraft Configuration Autodiscovery
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /usr/libexec/device-autodiscovery/minecraft start
+ExecReload=/bin/bash /usr/libexec/device-autodiscovery/minecraft reload
+RemainAfterExit=on
+
+[Install]
+WantedBy=multi-user.target
+

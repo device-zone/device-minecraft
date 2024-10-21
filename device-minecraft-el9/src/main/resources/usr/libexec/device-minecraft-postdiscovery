@@ -1,0 +1,46 @@
+#!/bin/bash
+  
+#
+# Minecraft Server Postdiscovery
+# ==============================
+#
+# This script autogenerates any required minecraft configuration after startup.
+
+set -e
+
+
+#
+# Handle the cleanup
+# ------------------
+cleanup_before_exit () {
+  if [ -d "${tmpdir}" ]; then
+    rm -rf "${tmpdir}"
+  fi
+}
+# be in a temporary workspace (this works on linux and macosx)
+tmpdir=`mktemp -d 2>/dev/null || mktemp -d -t 'tmpdir'`
+# trap catches the exit signal and runs the specified function
+trap cleanup_before_exit EXIT
+# be in our directory
+cd "${tmpdir}"
+
+
+
+#
+# Per instance? Run all scripts
+
+logger -t "${0}" "running postdiscovery for minecraft servers..."
+
+find "$0.d" -type f -executable | sort | \
+while read x; do
+  "$x" < /dev/null || touch error;
+done
+
+if test ! -f "error"; then
+  logger -t "${0}" "completed postdiscovery for minecraft servers."
+  exit 0
+else
+  logger -t "${0}" "failed postdiscovery for minecraft servers."
+  exit 1
+fi
+

@@ -1,0 +1,2 @@
+prefer-ipv4
+prefer-ipv6

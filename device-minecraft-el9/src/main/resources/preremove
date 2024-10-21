@@ -1,0 +1,7 @@
+if [ $1 = 0 ]; then
+  /usr/bin/systemctl stop minecraft-autodiscovery.service
+  /usr/bin/systemctl stop minecraft-postdiscovery.service
+  /usr/bin/systemctl disable minecraft-autodiscovery.service
+  /usr/bin/systemctl disable minecraft-postdiscovery.service
+fi
+
