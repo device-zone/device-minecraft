@@ -33,7 +33,7 @@ while read line; do
     port=$(head -n 1 "$line/port.txt")
   fi
 
-  if test -f "$line/disabled.bin" -o -z "${uuid}"; then
+  if test -f "$line/disabled.bin"; then
 
     if command -v /usr/bin/firewall-cmd 2>/dev/null; then
       logger -t minecraft-postdiscovery "Notice: closing firewall for minecraft port ${port}..."
