@@ -9,6 +9,11 @@ This appliance does the following:
 - Installs one or more Minecraft servers with the given name and port.
 - Autostarts on server restart.
 
+## dependency
+
+This package depends on the [Minecraft RPM](https://github.com/device-zone/minecraft) that needs to be
+built as per the instructions at the link.
+
 ## before
 
 - Deploy the device-minecraft package.
