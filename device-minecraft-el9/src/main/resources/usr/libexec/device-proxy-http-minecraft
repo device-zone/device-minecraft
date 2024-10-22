@@ -1,0 +1,10 @@
+#!/bin/bash
+  
+#
+# Minecraft Server Proxy
+# ======================
+#
+# If the proxy settings are changed, we restart the minecraft server.
+
+/usr/bin/sudo /usr/bin/systemctl try-reload-or-restart minecraft-autodiscovery.service
+

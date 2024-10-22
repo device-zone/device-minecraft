@@ -125,6 +125,19 @@
               </sources>
 	    </mapping>
             <mapping>
+              <directory>/usr/libexec/device-autodiscovery/proxy.d</directory>
+              <directoryIncluded>false</directoryIncluded>
+              <filemode>755</filemode>
+              <username>root</username>
+              <groupname>root</groupname>
+              <sources>
+                <source>
+                  <location>target/classes/usr/libexec/device-proxy-http-minecraft</location>
+                  <destination>http-minecraft</destination>
+                </source>
+              </sources>
+            </mapping>
+            <mapping>
               <directory>/usr/lib/systemd/system</directory>
               <directoryIncluded>false</directoryIncluded>
               <filemode>644</filemode>
